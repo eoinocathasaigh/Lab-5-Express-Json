@@ -20,6 +20,10 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
+//Need to use a Parser when using Post
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //Routing - Listening for a certain request
 //Req - http request
 //Res - http response
@@ -43,6 +47,15 @@ app.get('/index', (req, res) => {
 app.get('/name', (req, res) => {
     const firstname = req.query.firstname;
     const lastname = req.query.lastname;
+    res.send(`Hello ${firstname} ${lastname}`);
+});
+
+//Can have different functionality based on http method
+//POST - Data is sent as part of body of http request
+//Need to parse the info to be able to use it or else we wont get anything
+app.post('/name', (req, res) => {
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
     res.send(`Hello ${firstname} ${lastname}`);
 });
 

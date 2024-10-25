@@ -6,8 +6,16 @@
     <!--Form to gather info
     Form has an action
     It will change the url of the form to/name
-    We also have a method get-->
+    We also have a method get
+    GET METHOD
+    POST METHOD - sends data differently as opposed to get-->
     <form action="/name" method="GET">
+        First name: <input type="text" name="firstname"><br>
+        Last name: <input type="text" name="lastname"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <form action="/name" method="POST">
         First name: <input type="text" name="firstname"><br>
         Last name: <input type="text" name="lastname"><br>
         <input type="submit" value="Submit">
