@@ -7,6 +7,19 @@ const app = express();
 //Defining a port to execute on
 const port = 3000;
 
+//Middleware to serve all static files from a public directory
+app.use(express.static('public'));
+
+//This is an error handling component
+//Like the name implies it acts as middleware to catch any server errors
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    //Sets a status code of some sort
+    //This one is 500 - implies a server side error
+    //400 = client side error
+    res.status(500).send('Something went wrong!');
+});
+
 //Routing - Listening for a certain request
 //Req - http request
 //Res - http response
@@ -21,11 +34,17 @@ const path = require('path');
 //Serving the html file
 app.get('/index', (req, res) => {
     //Essentially if we go looking for it we are returned index.html
+    //All the html info from index.html is sent to us using this
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-//Middleware to serve all static files from a public directory
-app.use(express.static('public'));
+//Handling user filling out the fields
+//Submit will call this GET to retrieve tge 
+app.get('/name', (req, res) => {
+    const firstname = req.query.firstname;
+    const lastname = req.query.lastname;
+    res.send(`Hello ${firstname} ${lastname}`);
+});
 
 //Adding another route to handle another url
 //This get will handle routing us to another page
@@ -72,16 +91,6 @@ app.get('/api/movies', (req, res) => {
     //Returning a response to the user
     //Note - status code in 200 means a successful response
     res.status(200).json({ myMovies:movies });
-});
-
-//This is an error handling component
-//Like the name implies it acts as middleware to catch any server errors
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    //Sets a status code of some sort
-    //This one is 500 - implies a server side error
-    //400 = client side error
-    res.status(500).send('Something went wrong!');
 });
 
 //Server is just listening for a http request coming in
