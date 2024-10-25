@@ -7,13 +7,24 @@ const app = express();
 //Defining a port to execute on
 const port = 3000;
 
-//Listening for the domain name
+//Routing
 //Req - http request
 //Res - http response
 //Essentially we get a response in the form of text "Hello world"
 //Can basically say what address the response will be sent to
 app.get('/', (req, res) => {
     res.send('Welcome to Data Representation & Querying');
+});
+
+//Adding another route to handle another url
+//This get will handle routing us to another page
+//It will get the url request and return us a message based on the name we enter with it
+//Eg. If I use ../hello/Eoin in my search bar - Hello Eoin is returned to me
+//Can be altered to add more parameters to it
+app.get('/hello/:name/:secondname', (req, res) => {
+    const name = req.params.name;
+    const secondname = req.params.secondname;
+    res.send(`Hello ${name} ${secondname}`);
 });
 
 //This is an error handling component
