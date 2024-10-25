@@ -16,6 +16,17 @@ app.get('/', (req, res) => {
     res.send('Welcome to Data Representation & Querying');
 });
 
+//Defining a path
+const path = require('path');
+//Serving the html file
+app.get('/index', (req, res) => {
+    //Essentially if we go looking for it we are returned index.html
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+//Middleware to serve all static files from a public directory
+app.use(express.static('public'));
+
 //Adding another route to handle another url
 //This get will handle routing us to another page
 //It will get the url request and return us a message based on the name we enter with it
